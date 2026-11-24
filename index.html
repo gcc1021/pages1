@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>葛琛的 Cloudflare Pages 演示站 | pages1</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 顶部导航栏 -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="#" class="logo">
+        <span class="logo-badge">CF</span>
+        <span>GeChen · <strong>pages1</strong></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#about">建站原理</a>
+        <a href="#features">核心优势</a>
+        <a href="#playground">前端交互演示</a>
+        <a href="#deploy">部署步骤</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="themeToggle" class="btn btn-outline" aria-label="切换深浅色主题">
+          🌙 深色模式
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 首屏 Hero 区域 -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <div class="status-pill">
+          <span class="dot"></span>
+          已适配 Cloudflare Workers &amp; Pages 静态部署
+        </div>
+        <h1>你好，葛琛！<br />这是你的首个纯前端演示网站</h1>
+        <p class="hero-desc">
+          当前页面完全由原生的 <strong>HTML + CSS + JavaScript</strong> 构建，无需购买后端服务器或数据库。你可以直接将本压缩包上传至 Cloudflare Pages，或推送到 GitHub 仓库 <code>gcc1021/pages1</code> 实现自动上线。
+        </p>
+        <div class="hero-buttons">
+          <a href="#playground" class="btn btn-primary">体验前端交互功能</a>
+          <a href="#deploy" class="btn btn-secondary">查看上线部署指南</a>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="card-header">
+          <span class="window-dot red"></span>
+          <span class="window-dot yellow"></span>
+          <span class="window-dot green"></span>
+          <span class="card-title">项目运行状态概览</span>
+        </div>
+        <div class="card-body">
+          <div class="info-row">
+            <span class="label">仓库地址</span>
+            <span class="value">github.com/gcc1021/pages1</span>
+          </div>
+          <div class="info-row">
+            <span class="label">托管平台</span>
+            <span class="value">Cloudflare Pages</span>
+          </div>
+          <div class="info-row">
+            <span class="label">技术栈</span>
+            <span class="value">HTML5 / CSS3 / Vanilla JS</span>
+          </div>
+          <div class="info-row">
+            <span class="label">构建命令</span>
+            <span class="value">无需构建 (纯静态直出)</span>
+          </div>
+          <div class="info-row">
+            <span class="label">本地访问打卡</span>
+            <span class="value highlight" id="visitCounter">1 次</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 建站原理解析 -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>纯前端网站是怎么工作的？</h2>
+        <p>理解三个核心文件如何协同工作，就能掌握所有静态网站的底层逻辑</p>
+      </div>
+
+      <div class="arch-tabs">
+        <button class="tab-btn active" data-file="html">index.html（网页骨架）</button>
+        <button class="tab-btn" data-file="css">style.css（视觉样式）</button>
+        <button class="tab-btn" data-file="js">script.js（交互逻辑）</button>
+      </div>
+
+      <div class="arch-panel" id="archPanel">
+        <!-- 由 script.js 动态填充初始内容 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 核心优势 -->
+  <section id="features" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>为什么选择 Cloudflare Pages？</h2>
+        <p>非常适合个人主页、项目展示、博客与前端原型验证</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>全球 CDN 边缘加速</h3>
+          <p>网页文件会自动分发到 Cloudflare 全球数百个边缘节点，访客就近加载，打开速度极快。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3>GitHub 自动持续部署</h3>
+          <p>关联 <code>gcc1021/pages1</code> 后，每次在 GitHub 修改并提交代码，Cloudflare 都会在几十秒内自动更新网站。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>免费 HTTPS 安全证书</h3>
+          <p>平台自动分配 <code>*.pages.dev</code> 二级域名并开启全站 SSL 加密，也支持免费绑定自己的独立域名。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>全设备自适应布局</h3>
+          <p>本演示模板内置响应式断点，无论在电脑宽屏、平板还是手机浏览器上都能整齐美观地展示。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 前端交互演示区 -->
+  <section id="playground" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>前端交互演示实验室</h2>
+        <p>即使没有后端数据库，浏览器也能通过 JavaScript 实现丰富的实时互动与本地数据保存</p>
+      </div>
+
+      <div class="playground-grid">
+        <!-- 互动 1：节点延迟测试模拟 -->
+        <div class="play-card">
+          <h3>1. 边缘节点响应模拟测试</h3>
+          <p class="play-desc">点击下方按钮，模拟测试当前网页在 Cloudflare 边缘节点的响应速度与互动点赞。</p>
+          <div class="ping-box">
+            <div class="ping-metric">
+              <span class="metric-num" id="pingValue">18 ms</span>
+              <span class="metric-label">模拟边缘延迟</span>
+            </div>
+            <div class="ping-metric">
+              <span class="metric-num" id="likeCount">0</span>
+              <span class="metric-label">测试点赞数</span>
+            </div>
+          </div>
+          <div class="play-actions">
+            <button id="pingTestBtn" class="btn btn-primary">重新测速</button>
+            <button id="likeBtn" class="btn btn-outline">👍 点赞支持</button>
+          </div>
+        </div>
+
+        <!-- 互动 2：建站上线任务清单 -->
+        <div class="play-card">
+          <h3>2. 葛琛的建站上线进度表</h3>
+          <p class="play-desc">数据自动保存在浏览器 <code>localStorage</code> 中，刷新页面也不会丢失。</p>
+          <div class="todo-input-group">
+            <input type="text" id="todoInput" placeholder="输入新的待办步骤，例如：绑定自定义域名..." />
+            <button id="addTodoBtn" class="btn btn-primary">添加</button>
+          </div>
+          <ul class="todo-list" id="todoList"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 部署步骤说明 -->
+  <section id="deploy" class="section section-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2>两种方式把本压缩包部署上线</h2>
+        <p>任选其一，只需 1～2 分钟即可生成可公开访问的网址</p>
+      </div>
+
+      <div class="deploy-grid">
+        <div class="deploy-card">
+          <span class="step-badge">方式一 · 最快捷</span>
+          <h3>Cloudflare 直接上传压缩包</h3>
+          <ol class="step-list">
+            <li>登录 Cloudflare 控制台，进入 <strong>Workers &amp; Pages</strong>。</li>
+            <li>点击 <strong>Create（创建）</strong> → 切换到 <strong>Pages</strong> 标签页。</li>
+            <li>选择 <strong>Upload assets（直接上传资产）</strong>，输入项目名称（如 <code>pages1</code>）。</li>
+            <li>直接把本 <code>.zip</code> 压缩包拖入上传框，点击 <strong>Deploy site</strong> 即可完成上线！</li>
+          </ol>
+        </div>
+
+        <div class="deploy-card">
+          <span class="step-badge">方式二 · 推荐长期使用</span>
+          <h3>通过 GitHub 仓库自动部署</h3>
+          <ol class="step-list">
+            <li>解压本压缩包，得到 <code>index.html</code>、<code>style.css</code>、<code>script.js</code> 和 <code>README.md</code>。</li>
+            <li>打开你的 GitHub 仓库 <code>github.com/gcc1021/pages1</code>，点击 <strong>Add file → Upload files</strong> 把这 4 个文件传上去并提交（Commit）。</li>
+            <li>在 Cloudflare Pages 中选择 <strong>Connect to Git</strong>，选中 <code>pages1</code> 仓库。</li>
+            <li>构建框架选 <strong>None（无）</strong>，输出目录留空，点击保存并部署即可。</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>专为 <strong>葛琛 (gcc1021)</strong> 制作的 Cloudflare Pages 前端测试模板</p>
+      <p class="footer-sub">纯静态前端演示 · 可自由修改文字、配色与模块内容</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
